@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Lessons</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <h1>Lesson: Basic Spanish Words</h1>
+  <div id="flashcards"></div>
+
+  <script src="lessons.js"></script>
+  <script>
+    const container = document.getElementById('flashcards');
+
+    lessonData.forEach(({ word, translation }) => {
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.innerHTML = `
+        <p><strong>${word}</strong> - ${translation}</p>
+        <button onclick="speak('${word}')">Speak</button>
+      `;
+      container.appendChild(card);
+    });
+
+    function speak(text) {
+      const utter = new SpeechSynthesisUtterance(text);
+      speechSynthesis.speak(utter);
+    }
+  </script>
+</body>
+</html>

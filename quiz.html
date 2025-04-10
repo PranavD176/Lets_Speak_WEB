@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Quiz</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <h1>Quick Quiz</h1>
+  <div id="quiz-container"></div>
+  <p id="score"></p>
+
+  <script src="lessons.js"></script>
+  <script>
+    const quizContainer = document.getElementById('quiz-container');
+    let score = 0;
+
+    lessonData.forEach(({ word, translation }) => {
+      const question = document.createElement('div');
+      const options = [
+        translation,
+        "Mango", // fake
+        "Casa",  // fake
+        "Libro"  // fake
+      ].sort(() => Math.random() - 0.5);
+
+      question.innerHTML = `
+        <p>What is the Spanish word for "${word}"?</p>
+        ${options.map(opt => `<button onclick="checkAnswer('${opt}', '${translation}')">${opt}</button>`).join("<br>")}
+        <hr/>
+      `;
+      quizContainer.appendChild(question);
+    });
+
+    function checkAnswer(selected, correct) {
+      if (selected === correct) {
+        alert("Correct!");
+        score++;
+      } else {
+        alert(`Wrong! Correct answer: ${correct}`);
+      }
+      document.getElementById("score").textContent = `Score: ${score}/${lessonData.length}`;
+    }
+  </script>
+</body>
+</html>
